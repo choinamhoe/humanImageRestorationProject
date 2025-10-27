@@ -1,3 +1,6 @@
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import Home from "./pages/Home";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -12,13 +15,37 @@ import Login from "./pages/Login";
 import MainLayout from "./layouts/MainLayout";
 import GrayscaleToColor from "./components/GrayscaleToColor";
 import Restore from "./pages/Restore";
+import Signup from "./pages/Signup";
 
-function App() {
+// ✅ 새로고침 시 항상 홈("/")으로 리디렉션하는 컴포넌트
+function RedirectOnReload() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const navEntry = performance.getEntriesByType("navigation")[0];
+    const isReload =
+      navEntry?.type === "reload" ||
+      (performance.navigation && performance.navigation.type === 1);
+
+    if (isReload && pathname !== "/") {
+      // ✅ 약간의 지연을 줘서 React Router가 준비될 때까지 대기
+      setTimeout(() => navigate("/", { replace: true }), 100);
+    }
+  }, [navigate, pathname]);
+
+  return null;
+}
+
+export default function App() {
   return (
-    <Router>
+    <>
+      <RedirectOnReload />
       <Routes>
         {/* 로그인 페이지 (Sidebar 없음) */}
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/restore" element={<Restore />} />
         {/* 2. 사이드바가 있는 공통 레이아웃 페이지 
            - path="/" : <MainLayout />을 렌더링합니다.
            - 이 <Route> 안에 자식 라우트들을 중첩시킵니다.
@@ -38,8 +65,6 @@ function App() {
           {/* ✅ 복원 페이지 연결 */}
         </Route>
       </Routes>
-    </Router>
+    </>
   );
 }
-
-export default App;

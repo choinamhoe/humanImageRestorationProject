@@ -1,24 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import "./Restore.css";
 
 export default function Restore() {
   const [originalImage, setOriginalImage] = useState(null);
   const [restoredImage, setRestoredImage] = useState(null);
   const [sliderPosition, setSliderPosition] = useState(50);
+  const navigate = useNavigate();
 
-  // 이미지 업로드 핸들러
+  //   ✅ 로그인 여부 확인
+  useEffect(() => {
+    const token = localStorage.getItem("userToken");
+    if (!token) {
+      alert("로그인이 필요합니다 ❌");
+      navigate("/login"); // 로그인 안 되어 있으면 이동
+    }
+  }, [navigate]);
+
+  // ✅ 로그아웃 버튼
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userEmail");
+    alert("로그아웃되었습니다 👋");
+    navigate("/");
+  };
+
+  // ✅ 이미지 업로드
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const url = URL.createObjectURL(file);
       setOriginalImage(url);
-      // 임시 복원 이미지 (AI 연결 전까지 샘플 사용)
       setRestoredImage(`${process.env.PUBLIC_URL}/restored-sample.jpg`);
     }
   };
 
-  // 슬라이더 이동
+  // ✅ 슬라이더 이동
   const handleSliderMove = (e) => {
     const rect = e.target.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -43,6 +61,7 @@ export default function Restore() {
         >
           Re:Memory AI Restoration
         </motion.h1>
+
         <motion.p
           className="restore-sub"
           initial={{ opacity: 0 }}
@@ -51,6 +70,11 @@ export default function Restore() {
         >
           AI로 잊혀진 추억을 되살리세요.
         </motion.p>
+
+        {/* ✅ 로그아웃 버튼 */}
+        <button className="logout-btn" onClick={handleLogout}>
+          로그아웃
+        </button>
       </header>
 
       {/* 본문 */}
@@ -97,7 +121,7 @@ export default function Restore() {
         )}
       </motion.div>
 
-      {/* 버튼 */}
+      {/* 복원 버튼 */}
       <motion.button
         className="restore-btn"
         whileHover={{ scale: 1.05, backgroundColor: "#fff", color: "#000" }}
