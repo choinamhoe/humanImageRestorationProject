@@ -1,0 +1,33 @@
+/* src/components/Sidebar.css */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-title {
+  color: #fff;
+  margin-bottom: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-link {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 16px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+  color: #4caf50;
+}
+
+.sidebar-link.active {
+  color: #fff;
+  font-weight: bold;
+  border-left: 4px solid #4caf50;
+  padding-left: 10px;
+}
