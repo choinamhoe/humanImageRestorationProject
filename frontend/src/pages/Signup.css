@@ -9,7 +9,7 @@ html {
   font-family: "Inter", sans-serif;
 }
 
-.login-container {
+.signup-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,24 +18,24 @@ html {
   text-align: center;
 }
 
-.login-title {
+.signup-title {
   font-family: "Playfair Display", serif;
-  font-size: 2.5rem;
+  font-size: 2.3rem;
 }
 
-.login-subtext {
+.signup-subtext {
   color: #aaa;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-.login-form {
+.signup-form {
   display: flex;
   flex-direction: column;
   width: 300px;
   gap: 15px;
 }
 
-.login-form input {
+.signup-form input {
   background: none;
   border: 1px solid #555;
   color: #fff;
@@ -43,7 +43,7 @@ html {
   border-radius: 5px;
 }
 
-.login-form button {
+.signup-form button {
   background-color: #fff;
   color: #000;
   padding: 10px;
@@ -54,8 +54,28 @@ html {
   transition: 0.3s;
 }
 
-.login-form button:hover {
+.signup-form button:hover {
   background-color: #ddd;
+}
+
+.login-link {
+  margin-top: 15px;
+  font-family: "Noto Sans KR", serif;
+  color: #e5e5e5;
+  font-size: 0.8rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.login-link span {
+  color: #ffffff;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.login-link span:hover {
+  color: #cfcfcf;
 }
 
 .back-btn {
@@ -70,23 +90,4 @@ html {
 
 .back-btn:hover {
   color: #fff;
-}
-.signup-link {
-  margin-top: 15px;
-  font-family: "Noto Sans KR", serif; /* 제목과 통일 */
-  color: #e5e5e5;
-  font-size: 0.8rem;
-  text-align: center;
-  letter-spacing: 0.5px;
-}
-
-.signup-link span {
-  color: #ffffff;
-  text-decoration: underline;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.signup-link span:hover {
-  color: #cfcfcf;
 }

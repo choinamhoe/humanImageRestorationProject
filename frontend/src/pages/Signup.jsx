@@ -1,77 +1,76 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth } from "../firebase";
-import "./Login.css";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import "./Signup.css";
 
-function Login() {
+export default function Signup() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [users, setUsers] = useState([]);
 
-  // 이메일 로그인
-  const handleLogin = async (e) => {
+  // 회원가입 처리
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("로그인 성공 🎉");
-      navigate("/restore");
-    } catch (error) {
-      alert("로그인 실패 😢 " + error.message);
-    }
-  };
 
-  // 구글 로그인
-  const handleGoogleLogin = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-      alert("Google 로그인 성공 🎉");
-      navigate("/restore");
-    } catch (error) {
-      alert("로그인 실패 😢 " + error.message);
+    const newUser = { email, password };
+
+    // 기존 유저 목록 불러오기
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    // 이미 존재하는 이메일 검사
+    const userExists = storedUsers.some((user) => user.email === email);
+
+    if (userExists) {
+      alert("이미 존재하는 이메일입니다 ❌");
+      return;
     }
+
+    // 새 유저 추가 및 저장
+    const updatedUsers = [...storedUsers, newUser];
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+    alert("회원가입 완료 🎉 자동으로 로그인됩니다.");
+
+    // ✅ 자동 로그인 상태 저장
+    localStorage.setItem("userToken", "true");
+    localStorage.setItem("userEmail", email);
+
+    navigate("/restore");
   };
 
   return (
-    <div className="login-page">
-      <div className="login-box">
-        <h2>Re:Memory 로그인</h2>
-        <p className="subtext">AI로 당신의 추억을 복원하세요</p>
+    <div className="signup-container">
+      <h1 className="signup-title">Create Your Re:Memory Account</h1>
+      <p className="signup-subtext">
+        Preserve your moments with AI restoration.
+      </p>
 
-        {/* 이메일 로그인 */}
-        <form onSubmit={handleLogin}>
-          <input name="email" type="email" placeholder="이메일 주소" required />
-          <input
-            name="password"
-            type="password"
-            placeholder="비밀번호"
-            required
-          />
-          <button type="submit">로그인</button>
-        </form>
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Sign Up</button>
+      </form>
 
-        {/* 구글 로그인 버튼 */}
-        <div className="divider">또는</div>
-        <button className="google-btn" onClick={handleGoogleLogin}>
-          <img src="/images/google-icon.png" alt="Google" />
-          Google로 로그인
-        </button>
+      <p className="login-link">
+        이미 계정이 있으신가요?{" "}
+        <span onClick={() => navigate("/login")}>로그인</span>
+      </p>
 
-        <p className="register">
-          계정이 없으신가요?{" "}
-          <span onClick={() => navigate("/signup")}>회원가입</span>
-        </p>
-        <button className="back-btn" onClick={() => navigate("/")}>
-          ← 홈으로 돌아가기
-        </button>
-      </div>
+      <button className="back-btn" onClick={() => navigate("/")}>
+        ← Back to Home
+      </button>
     </div>
   );
 }
-
-export default Login;
