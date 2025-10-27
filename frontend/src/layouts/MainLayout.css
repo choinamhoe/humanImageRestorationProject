@@ -1,0 +1,26 @@
+/* src/layout/MainLayout.css */
+
+.main-layout {
+  display: flex;
+  height: 100vh;
+  background-color: #111;
+  color: #fff;
+}
+
+.sidebar-container {
+  width: 220px;
+  background-color: #222;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.content-container {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
