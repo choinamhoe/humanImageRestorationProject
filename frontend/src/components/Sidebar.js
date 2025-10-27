@@ -8,8 +8,9 @@ const Sidebar = () => {
     <div className="sidebar">
       <h2 className="sidebar-title">Image Lab</h2>
 
+      {/* ✅ 흑백 → 컬러 변환 */}
       <NavLink
-        to="/colorize"
+        to="/main/colorize"
         className={({ isActive }) =>
           isActive ? "sidebar-link active" : "sidebar-link"
         }
@@ -17,8 +18,9 @@ const Sidebar = () => {
         흑백 → 컬러 변환
       </NavLink>
 
+      {/* ✅ 사진 복원 */}
       <NavLink
-        to="/restore"
+        to="/main/restore"
         className={({ isActive }) =>
           isActive ? "sidebar-link active" : "sidebar-link"
         }

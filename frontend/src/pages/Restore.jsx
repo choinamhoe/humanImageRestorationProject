@@ -9,7 +9,7 @@ export default function Restore() {
   const [sliderPosition, setSliderPosition] = useState(50);
   const navigate = useNavigate();
 
-  //   ✅ 로그인 여부 확인
+  // ✅ 로그인 여부 확인
   useEffect(() => {
     const token = localStorage.getItem("userToken");
     if (!token) {
@@ -24,6 +24,11 @@ export default function Restore() {
     localStorage.removeItem("userEmail");
     alert("로그아웃되었습니다 👋");
     navigate("/");
+  };
+
+  // ✅ 이전으로 가기 버튼
+  const handleGoBack = () => {
+    window.history.back(); // 직전 페이지로 돌아가기
   };
 
   // ✅ 이미지 업로드
@@ -51,33 +56,50 @@ export default function Restore() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      {/* 헤더 */}
+      {/* 🔹 헤더 영역 */}
       <header className="restore-header">
-        <motion.h1
-          className="restore-title"
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1 }}
+        {/* ← 이전으로 버튼 */}
+        <motion.button
+          className="back-btn"
+          onClick={handleGoBack}
+          whileHover={{ x: -5, color: "#fff" }}
+          whileTap={{ scale: 0.95 }}
         >
-          Re:Memory AI Restoration
-        </motion.h1>
+          ← 이전으로
+        </motion.button>
 
-        <motion.p
-          className="restore-sub"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
+        <div className="restore-header-content">
+          <motion.h1
+            className="restore-title"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            Re:Memory AI Restoration
+          </motion.h1>
+
+          <motion.p
+            className="restore-sub"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+          >
+            AI로 잊혀진 추억을 되살리세요.
+          </motion.p>
+        </div>
+
+        {/* 로그아웃 버튼 (오른쪽 상단 고정) */}
+        <motion.button
+          className="logout-btn"
+          onClick={handleLogout}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          AI로 잊혀진 추억을 되살리세요.
-        </motion.p>
-
-        {/* ✅ 로그아웃 버튼 */}
-        <button className="logout-btn" onClick={handleLogout}>
           로그아웃
-        </button>
+        </motion.button>
       </header>
 
-      {/* 본문 */}
+      {/* 🔹 본문 영역 */}
       <motion.div
         className="upload-section"
         initial={{ opacity: 0, y: 40 }}
@@ -121,7 +143,7 @@ export default function Restore() {
         )}
       </motion.div>
 
-      {/* 복원 버튼 */}
+      {/* 🔹 복원 버튼 */}
       <motion.button
         className="restore-btn"
         whileHover={{ scale: 1.05, backgroundColor: "#fff", color: "#000" }}

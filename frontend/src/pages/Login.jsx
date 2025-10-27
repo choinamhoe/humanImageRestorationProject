@@ -15,12 +15,12 @@ export default function Login() {
   }, []);
 
   // ✅ 2. 이미 로그인된 사용자는 로그인 페이지 접근 시 자동 리다이렉트
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("userToken");
-    if (isLoggedIn) {
-      navigate("/restore"); // 이미 로그인된 경우 복원 페이지로
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  // const isLoggedIn = localStorage.getItem("userToken");
+  //if (isLoggedIn) {
+  // navigate("/restore"); // 이미 로그인된 경우 복원 페이지로
+  // }
+  //}, [navigate]);
 
   // ✅ 3. 로그인 시도
   const handleSubmit = (e) => {
@@ -37,7 +37,7 @@ export default function Login() {
       localStorage.setItem("userToken", "true");
       localStorage.setItem("userEmail", email);
 
-      navigate("/restore");
+      navigate("/main");
     } else {
       alert("이메일 또는 비밀번호가 틀렸습니다 ❌");
     }
