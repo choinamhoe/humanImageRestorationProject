@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {
+  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -9,12 +10,11 @@ import {
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import MainLayout from "./layouts/MainLayout";
 import GrayscaleToColor from "./components/GrayscaleToColor";
 import Restore from "./pages/Restore";
-import RestoreBackup from "./pages/Restore_backup";
-// 🔹 새로고침 시 홈으로 리디렉션
+import Signup from "./pages/Signup";
+
 function RedirectOnReload() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -35,24 +35,18 @@ function RedirectOnReload() {
 
 export default function App() {
   return (
-    <>
+    <Router>
       <RedirectOnReload />
       <Routes>
-        {/* 홈, 로그인, 회원가입 */}
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-
-        {/* ✅ MainLayout 내부 페이지 */}
-        <Route path="/main" element={<MainLayout />}>
-          <Route path="colorize" element={<GrayscaleToColor />} />
-          {/* 🔹 Restore → Restore_backup 으로 변경 */}
-          <Route path="restore" element={<RestoreBackup />} />
+        <Route path="/restore" element={<Restore />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Navigate to="/colorize" replace />} />
+          <Route path="/colorize" element={<GrayscaleToColor />} />
         </Route>
-
-        {/* 존재하지 않는 경로는 홈으로 */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </>
+    </Router>
   );
 }

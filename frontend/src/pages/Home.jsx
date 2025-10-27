@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom"; // ✅ useNavigate → Link 로 교체
-
 import "./Home.css";
 
 export default function Home() {
-  const navigate = useNavigate();
-
-  // 배경 슬라이드 이미지
+  // 🔹 배경 이미지 배열
   const images = [
     `${process.env.PUBLIC_URL}/memory1.jpg`,
     `${process.env.PUBLIC_URL}/memory2.jpg`,
@@ -16,29 +11,39 @@ export default function Home() {
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
-  const [fadeOut, setFadeOut] = useState(false); // ✅ 부드러운 전환용 상태
+  const [fadeOut, setFadeOut] = useState(false);
 
-  // Begin Restoration 버튼 클릭
-  const handleStartClick = () => {
-    const isLoggedIn = localStorage.getItem("userToken");
-    setFadeOut(true); // 페이드아웃 시작
-
-    setTimeout(() => {
-      if (isLoggedIn) {
-        window.location.href = "/restore";
-      } else {
-        window.location.href = "/login";
-      }
-    }, 600); // 애니메이션 끝나고 이동
-  };
-
-  // 이미지 자동 전환
+  // 🔹 자동 이미지 슬라이드
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  // ✅ Begin Restoration 버튼
+  const handleStartClick = () => {
+    const isLoggedIn = localStorage.getItem("userToken");
+    setFadeOut(true);
+
+    setTimeout(() => {
+      if (isLoggedIn) {
+        // 🔹 로그인되어 있으면 사진 복원 페이지로 이동
+        window.location.href = "/main/restore"; // ✅ 수정됨
+      } else {
+        // 🔹 로그인 안 되어 있으면 로그인 페이지로 이동
+        window.location.href = "/login";
+      }
+    }, 600);
+  };
+
+  // ✅ Login 버튼
+  const handleLoginClick = () => {
+    setFadeOut(true);
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 300);
+  };
 
   return (
     <motion.div
@@ -47,14 +52,14 @@ export default function Home() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      {/* 배경 */}
+      {/* ✅ 배경 이미지 */}
       <div
         className="background-slideshow"
         style={{ backgroundImage: `url(${images[currentImage]})` }}
       ></div>
       <div className="overlay"></div>
 
-      {/* 헤더 */}
+      {/* ✅ 헤더 */}
       <header className="top-header">
         <motion.div
           className="logo"
@@ -72,13 +77,13 @@ export default function Home() {
           transition={{ duration: 0.8 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => navigate("/login")}
+          onClick={handleLoginClick}
         >
           Login
         </motion.button>
       </header>
 
-      {/* 메인 콘텐츠 */}
+      {/* ✅ 메인 콘텐츠 */}
       <main className="center-content">
         <motion.h1
           className="main-title"
@@ -98,6 +103,7 @@ export default function Home() {
           Because your memories deserve clarity.
         </motion.p>
 
+        {/* ✅ Begin Restoration 버튼 */}
         <motion.button
           className="start-btn"
           onClick={handleStartClick}
