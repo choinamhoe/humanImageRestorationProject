@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import "./Restore.css";
 
 export default function Restore() {
@@ -12,12 +13,12 @@ export default function Restore() {
     if (file) {
       const url = URL.createObjectURL(file);
       setOriginalImage(url);
-      // 복원된 이미지 예시 (AI 백엔드 연결 전까지 샘플 이미지 사용)
+      // 임시 복원 이미지 (AI 연결 전까지 샘플 사용)
       setRestoredImage(`${process.env.PUBLIC_URL}/restored-sample.jpg`);
     }
   };
 
-  // 마우스로 중앙 슬라이더 이동
+  // 슬라이더 이동
   const handleSliderMove = (e) => {
     const rect = e.target.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -26,23 +27,53 @@ export default function Restore() {
   };
 
   return (
-    <div className="restore-page">
-      <h1>Re:Memory AI Restoration</h1>
-      <p>AI로 잊혀진 추억을 되살리세요.</p>
+    <motion.div
+      className="restore-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      {/* 헤더 */}
+      <header className="restore-header">
+        <motion.h1
+          className="restore-title"
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          Re:Memory AI Restoration
+        </motion.h1>
+        <motion.p
+          className="restore-sub"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+        >
+          AI로 잊혀진 추억을 되살리세요.
+        </motion.p>
+      </header>
 
-      <div
-        className="upload-box"
-        onClick={() => document.getElementById("upload").click()}
+      {/* 본문 */}
+      <motion.div
+        className="upload-section"
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 1 }}
       >
-        <input
-          id="upload"
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }}
-          onChange={handleImageUpload}
-        />
         {!originalImage ? (
-          <p>이미지를 업로드하려면 클릭하세요</p>
+          <div
+            className="upload-box"
+            onClick={() => document.getElementById("upload").click()}
+          >
+            <input
+              id="upload"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
+            />
+            <p>이미지를 업로드하려면 클릭하세요</p>
+          </div>
         ) : (
           <div
             className="comparison-container"
@@ -64,9 +95,16 @@ export default function Restore() {
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
 
-      <button className="restore-btn">AI 복원 시작</button>
-    </div>
+      {/* 버튼 */}
+      <motion.button
+        className="restore-btn"
+        whileHover={{ scale: 1.05, backgroundColor: "#fff", color: "#000" }}
+        whileTap={{ scale: 0.95 }}
+      >
+        AI 복원 시작 →
+      </motion.button>
+    </motion.div>
   );
 }

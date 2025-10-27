@@ -1,73 +1,75 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import "./Home.css";
-
-const slides = [
-  {
-    img: `memory1.jpg`,
-    text: "restore your memories",
-  },
-  {
-    img: `memory2.jpg`,
-    text: "AI brings them back to life",
-  },
-  {
-    img: `memory3.jpg`,
-    text: "Re:Memory — redefine nostalgia",
-  },
-];
 
 export default function Home() {
   const navigate = useNavigate();
-  console.log(slides);
-  const settings = {
-    dots: false,
-    infinite: true,
-    fade: true,
-    autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 5000,
-    arrows: false,
-  };
 
   return (
     <div className="home-container">
-      <Slider {...settings}>
-        {slides.map((s, i) => (
-          <div
-            key={i}
-            className="slide"
-            style={{
-              backgroundImage: `url(${process.env.PUBLIC_URL + s.img})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              height: "100vh",
-              width: "100%",
-              position: "relative",
-            }}
-          >
-            <p>{s.img}</p>
-            <div className="overlay" />
-            <motion.h1
-              className="slide-text"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2 }}
-            >
-              {s.text}
-            </motion.h1>
-          </div>
-        ))}
-      </Slider>
+      {/* 헤더 */}
+      <header className="top-header">
+        <motion.div
+          className="logo"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Re:Memory
+        </motion.div>
 
-      <button className="cta-btn" onClick={() => navigate("/restore")}>
-        복원 시작하기 →
-      </button>
+        <motion.button
+          className="menu-btn"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => navigate("/login")}
+        >
+          Login
+        </motion.button>
+      </header>
+
+      {/* 본문 중앙 텍스트 */}
+      <main className="center-content">
+        <motion.h1
+          className="main-title"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        >
+          Re:Memory — restoring what time has faded.
+        </motion.h1>
+
+        <motion.p
+          className="subtitle"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2, duration: 1 }}
+        >
+          Because your memories deserve clarity.
+        </motion.p>
+
+        {/* 버튼 */}
+        <motion.button
+          className="start-btn"
+          onClick={() => navigate("/restore")}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.0, duration: 1 }}
+          whileHover={{
+            scale: 1.05,
+            backgroundColor: "#fff",
+            color: "#000",
+            boxShadow: "0 0 20px rgba(255,255,255,0.4)",
+          }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Begin Restoration →
+        </motion.button>
+      </main>
     </div>
   );
 }

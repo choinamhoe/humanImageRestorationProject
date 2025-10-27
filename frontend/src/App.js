@@ -1,17 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-import Restore from "./pages/Restore";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Restore from "./pages/Restore";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/restore" element={<Restore />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/restore" element={<Restore />} />{" "}
+        {/* ✅ 복원 페이지 연결 */}
       </Routes>
     </Router>
   );
