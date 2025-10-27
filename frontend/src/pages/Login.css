@@ -1,0 +1,163 @@
+/* 전체 배경 */
+.login-page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0d0d0d;
+  color: #f0f0f0;
+  font-family: "Pretendard", sans-serif;
+}
+
+/* 로그인 박스 */
+.login-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 3rem 4rem;
+  text-align: center;
+  width: 400px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.login-box:hover {
+  transform: translateY(-3px);
+}
+
+/* 제목 */
+.login-box h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #68d2c7;
+  margin-bottom: 0.5rem;
+}
+
+/* 부제 */
+.subtext {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 2rem;
+}
+
+/* 입력창 */
+.login-box input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  margin: 0.5rem 0;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background-color: #1a1a1a;
+  color: #eee;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.login-box input:focus {
+  border-color: #68d2c7;
+  box-shadow: 0 0 6px rgba(104, 210, 199, 0.5);
+}
+
+/* 일반 로그인 버튼 */
+.login-box button[type="submit"] {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.9rem 0;
+  border: none;
+  border-radius: 10px;
+  background-color: #68d2c7;
+  color: #0b0b0b;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-box button[type="submit"]:hover {
+  background-color: #57bdb3;
+}
+
+/* 구글 로그인 구분선 */
+.divider {
+  margin: 1.5rem 0;
+  font-size: 0.85rem;
+  color: #888;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: #333;
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+/* 구글 로그인 버튼 */
+.google-btn {
+  width: 100%;
+  padding: 0.8rem 0;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background-color: #111;
+  color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.google-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.google-btn:hover {
+  border-color: #68d2c7;
+  color: #68d2c7;
+}
+
+/* 회원가입, 홈으로 */
+.register {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.register span {
+  color: #68d2c7;
+  cursor: pointer;
+}
+
+.register span:hover {
+  text-decoration: underline;
+}
+
+/* 홈으로 돌아가기 버튼 */
+.back-btn {
+  margin-top: 1.5rem;
+  background: none;
+  border: none;
+  color: #68d2c7;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
