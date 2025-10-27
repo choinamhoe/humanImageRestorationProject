@@ -1,13 +1,14 @@
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { useEffect } from "react";
 import Home from "./pages/Home";
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
 //import Home from "./pages/Home";
 // 페이지 컴포넌트 임포트
 import Login from "./pages/Login";
