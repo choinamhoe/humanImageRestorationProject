@@ -13,7 +13,7 @@ import Signup from "./pages/Signup";
 import MainLayout from "./layouts/MainLayout";
 import GrayscaleToColor from "./components/GrayscaleToColor";
 import Restore from "./pages/Restore";
-import RestoreBackup from "./pages/Restore_backup";
+
 // 🔹 새로고침 시 홈으로 리디렉션
 function RedirectOnReload() {
   const navigate = useNavigate();
@@ -46,8 +46,7 @@ export default function App() {
         {/* ✅ MainLayout 내부 페이지 */}
         <Route path="/main" element={<MainLayout />}>
           <Route path="colorize" element={<GrayscaleToColor />} />
-          {/* 🔹 Restore → Restore_backup 으로 변경 */}
-          <Route path="restore" element={<RestoreBackup />} />
+          <Route path="restore" element={<Restore />} />
         </Route>
 
         {/* 존재하지 않는 경로는 홈으로 */}
